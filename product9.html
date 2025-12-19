@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Japanese Herbal Tea</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --dark:#020b2d;
+  --mid:#0b2a6f;
+  --light:#1f55c8;
+  --blue:#1e90ff;
+  --white:#ffffff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at center, var(--light) 0%, var(--mid) 45%, var(--dark) 85%);
+  color:white;
+  overflow:hidden;
+}
+
+/* ----------------- Moving Background ---------------- */
+.bg-shapes span{
+  position:absolute;
+  width:14px;
+  height:14px;
+  background:rgba(255,255,255,0.9);
+  animation:float 18s linear infinite;
+  border-radius:50%;
+}
+
+.bg-shapes span:nth-child(odd){
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+@keyframes float{
+  0%{transform:translateY(110vh) rotate(0deg);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+}
+
+.bg-shapes span:nth-child(1){left:5%;}
+.bg-shapes span:nth-child(2){left:15%; animation-delay:2s;}
+.bg-shapes span:nth-child(3){left:30%; animation-delay:4s;}
+.bg-shapes span:nth-child(4){left:45%; animation-delay:1s;}
+.bg-shapes span:nth-child(5){left:60%; animation-delay:3s;}
+.bg-shapes span:nth-child(6){left:75%; animation-delay:5s;}
+.bg-shapes span:nth-child(7){left:90%; animation-delay:6s;}
+
+/* ---------------- main container ---------------- */
+.container{
+  position:relative;
+  z-index:2;
+  max-width:1100px;
+  margin:80px auto;
+  padding:40px;
+  background:rgba(255,255,255,0.05);
+  border-radius:18px;
+  backdrop-filter:blur(8px);
+  box-shadow:0 25px 60px rgba(0,0,0,0.6);
+}
+
+/* ---------------- corner design ---------------- */
+.corner{
+  position:absolute;
+  width:80px;
+  height:80px;
+  border:2px solid rgba(255,255,255,0.6);
+  box-shadow:0 0 15px rgba(255,255,255,0.5);
+}
+
+.corner::before,
+.corner::after{
+  content:"";
+  position:absolute;
+  width:40px;
+  height:40px;
+  border:2px solid rgba(255,255,255,0.6);
+}
+
+.corner::before{top:10px; left:10px;}
+.corner::after{bottom:10px; right:10px;}
+
+.top-left{top:10px; left:10px; border-right:none; border-bottom:none;}
+.top-right{top:10px; right:10px; border-left:none; border-bottom:none;}
+.bottom-left{bottom:10px; left:10px; border-right:none; border-top:none;}
+.bottom-right{bottom:10px; right:10px; border-left:none; border-top:none;}
+
+/* --------- product area layout --------- */
+.product{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+
+/* --------- placeholder boxes --------- */
+.image-space{
+  height:360px;
+  border:2px dashed rgba(255,255,255,0.4);
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* details */
+.details{display:flex;flex-direction:column;gap:20px;}
+
+.name-space{
+  height:40px;
+  width:90%;
+  border:2px dashed rgba(255,255,255,0.4);
+  border-radius:8px;
+  padding:8px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.description-space{
+  border:2px dashed rgba(255,255,255,0.4);
+  border-radius:8px;
+  padding:12px;
+  font-size:15px;
+  line-height:1.4;
+}
+
+/* ---- buy button ---- */
+.buy-btn{
+  margin-top:30px;
+  width:200px;
+  padding:14px;
+  text-align:center;
+  background:var(--blue);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  border-radius:10px;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.buy-btn:hover{transform:translateY(-3px);}
+@media(max-width:900px){.product{grid-template-columns:1fr;}}
+</style>
+</head>
+
+<body>
+
+<div class="bg-shapes">
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<div class="container">
+
+  <div class="corner top-left"></div>
+  <div class="corner top-right"></div>
+  <div class="corner bottom-left"></div>
+  <div class="corner bottom-right"></div>
+
+  <div class="product">
+
+    <div class="image-space">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.Meo-pS-9Y7Y4oSxo2bEIDgHaE8?pid=Api&P=0&h=180" alt="Japanese Herbal Tea" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+    </div>
+
+    <div class="details">
+      <div class="name-space">Japanese Herbal Tea</div>
+
+      <div class="description-space">
+        Japanese Herbal Tea is a soothing traditional beverage made from natural herbs and botanicals native to Japan. Known for promoting relaxation, aiding digestion, and offering gentle wellness benefits, Japanese herbal tea blends centuries of traditional brewing wisdom. Whether served hot or cold, it exemplifies harmony, health, and mindful living.
+      </div>
+
+      <a href="https://senbirdtea.com/collections/herbal-tea?sort_by=manual&filter.v.availability=1" class="buy-btn">BUY NOW</a>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

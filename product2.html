@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Japanese Tradition Product</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --dark:#020b2d;
+  --mid:#0b2a6f;
+  --light:#1f55c8;
+  --blue:#1e90ff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at center, var(--light) 0%, var(--mid) 45%, var(--dark) 85%);
+  color:white;
+  overflow:hidden;
+}
+
+/* MOVING OBJECTS */
+.bg-shapes span{
+  position:absolute;
+  width:14px;
+  height:14px;
+  background:rgba(255,255,255,0.9);
+  animation:float 18s linear infinite;
+  border-radius:50%;
+}
+
+@keyframes float{
+  0%{transform:translateY(110vh) rotate(0deg);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+}
+
+.bg-shapes span:nth-child(1){left:5%;}
+.bg-shapes span:nth-child(2){left:20%;animation-delay:2s;}
+.bg-shapes span:nth-child(3){left:40%;animation-delay:4s;}
+.bg-shapes span:nth-child(4){left:60%;animation-delay:1s;}
+.bg-shapes span:nth-child(5){left:80%;animation-delay:3s;}
+
+/* MAIN CONTAINER */
+.container{
+  position:relative;
+  z-index:2;
+  max-width:1100px;
+  margin:80px auto;
+  padding:40px;
+  background:rgba(255,255,255,0.05);
+  border-radius:18px;
+  backdrop-filter:blur(8px);
+  box-shadow:0 25px 60px rgba(0,0,0,0.6);
+}
+
+/* PRODUCT LAYOUT */
+.product{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+
+/* IMAGE SPACE */
+.image-space{
+  height:360px;
+  border:2px dashed rgba(255,255,255,0.4);
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.image-space img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+/* DETAILS */
+.details{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+/* NAME */
+.name-space{
+  padding:10px;
+  border:2px dashed rgba(255,255,255,0.4);
+  border-radius:8px;
+  font-size:20px;
+  font-weight:bold;
+}
+
+/* DESCRIPTION */
+.desc-space{
+  padding:14px;
+  border:2px dashed rgba(255,255,255,0.4);
+  border-radius:8px;
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* BUY BUTTON */
+.buy-btn{
+  margin-top:20px;
+  width:200px;
+  padding:14px;
+  text-align:center;
+  background:var(--blue);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  border-radius:10px;
+  text-decoration:none;
+  box-shadow:0 10px 25px rgba(30,144,255,0.5);
+  transition:0.3s;
+}
+
+.buy-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 35px rgba(30,144,255,0.7);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .product{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-shapes">
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="container">
+  <div class="product">
+
+    <!-- IMAGE -->
+    <div class="image-space">
+      <img src="https://www.japanshoreexcursions.com/wp-content/uploads/Japanese-traditional-culture-facts.jpg"
+           alt="Japanese Traditional Culture">
+    </div>
+
+    <!-- DETAILS -->
+    <div class="details">
+
+      <div class="name-space">
+        Japanese Traditional Culture
+      </div>
+
+      <div class="desc-space">
+        Japanese traditional culture represents centuries of rich heritage, values,
+        and customs passed down through generations. It includes practices such as
+        tea ceremonies, traditional clothing, festivals, art forms, respect for nature,
+        and deep-rooted social harmony. This product symbolizes the elegance, discipline,
+        and spiritual depth of Japan’s cultural identity.
+
+        Daruma doll is made based on Bodhidharma - Founder of Zen Buddhism.
+        The dolls were brought up here in Takasaki City as an auspicious gift for the harvest of silk threads.
+        At the present time, daruma doll is the most popular mascot in Japan.
+        Many of us Japanese buy a daruma in hope of happiness and of a successful job every year.
+        Please buy it for the business prosperity, academic congratulatory gift, wedding gift and so on.
+      </div>
+
+      <a href="https://daruma.jp/" class="buy-btn">BUY</a>
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

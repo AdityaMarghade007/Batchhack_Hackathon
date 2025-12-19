@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeritageHub — Korea</title>
+
+<style>
+:root{
+  --dark:#050914;
+  --mid:#10234a;
+  --light:#1e5fa3;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: Inter, Arial, sans-serif;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at center, var(--light) 0%, var(--mid) 45%, var(--dark) 90%);
+  color:white;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ========== KOREAN DECORATIONS ========== */
+
+/* SIDE HANBOK STRIPE STYLE */
+.side{
+  position:fixed;
+  top:0;
+  bottom:0;
+  width:90px;
+  opacity:0.22;
+  z-index:2;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.25),
+      rgba(255,255,255,0.25) 2px,
+      transparent 2px,
+      transparent 14px
+    );
+}
+.side.left{left:0}
+.side.right{right:0;transform:scaleX(-1)}
+
+/* CORNERS (KOREAN CLOUD CURVES) */
+.corner{
+  position:fixed;
+  width:200px;
+  height:200px;
+  opacity:0.35;
+  z-index:3;
+  pointer-events:none;
+}
+.tl{top:0;left:0}
+.tr{top:0;right:0;transform:scaleX(-1)}
+.bl{bottom:0;left:0;transform:scaleY(-1)}
+.br{bottom:0;right:0;transform:scale(-1)}
+
+/* TAEGEUK CIRCLE */
+.taeguk{
+  position:fixed;
+  left:50%;
+  top:50%;
+  width:650px;
+  height:650px;
+  transform:translate(-50%,-50%);
+  opacity:0.05;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ================= HEADER ================= */
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:16px 26px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:50;
+}
+
+.logo img{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  box-shadow:0 10px 22px rgba(0,0,0,0.9);
+}
+
+.header-buttons{
+  display:flex;
+  gap:12px;
+}
+.header-buttons button{
+  padding:10px 18px;
+  border:none;
+  border-radius:22px;
+  background:white;
+  color:#050b1f;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* ================= MAIN ================= */
+.main{
+  padding-top:120px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:36px;
+  position:relative;
+  z-index:10;
+}
+
+/* KOREA HEADING */
+.heading{
+  font-size:44px;
+  letter-spacing:3px;
+  font-weight:700;
+}
+
+/* SEARCH BAR */
+.search-box{
+  width:360px;
+}
+.search-box input{
+  width:100%;
+  padding:15px 22px;
+  border-radius:30px;
+  border:none;
+  outline:none;
+  font-size:15px;
+  background:white;
+  color:black;
+}
+
+/* REGIONS GRID */
+.states{
+  display:grid;
+  grid-template-columns:repeat(3, 260px);
+  gap:32px;
+}
+
+/* CARD */
+.state{
+  background:black;
+  border-radius:20px;
+  padding:30px;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 22px 50px rgba(0,0,0,0.9);
+  transition:transform .25s ease;
+}
+.state:hover{transform:translateY(-14px)}
+.state h2{margin:0;font-size:24px}
+.state p{margin-top:10px;font-size:14px;opacity:.75}
+
+/* MOVING OBJECTS */
+.moving-layer{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+.orb{
+  position:absolute;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:radial-gradient(circle,#ffffff,#d6e6ff);
+  opacity:0.65;
+  box-shadow:0 0 45px rgba(255,255,255,0.8);
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){.states{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.states{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+
+<!-- KOREAN DECOR -->
+<div class="side left"></div>
+<div class="side right"></div>
+
+<div class="corner tl"><svg viewBox="0 0 200 200"><path d="M10 120 Q90 40 190 80" stroke="#fff" stroke-width="3" fill="none"/></svg></div>
+<div class="corner tr"><svg viewBox="0 0 200 200"><path d="M10 120 Q90 40 190 80" stroke="#fff" stroke-width="3" fill="none"/></svg></div>
+<div class="corner bl"><svg viewBox="0 0 200 200"><path d="M10 120 Q90 40 190 80" stroke="#fff" stroke-width="3" fill="none"/></svg></div>
+<div class="corner br"><svg viewBox="0 0 200 200"><path d="M10 120 Q90 40 190 80" stroke="#fff" stroke-width="3" fill="none"/></svg></div>
+
+<!-- TAEGEUK SYMBOL -->
+<svg class="taeguk" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="70" stroke="#fff" stroke-width="3" fill="none"/>
+  <path d="M100 30 A70 70 0 0 1 100 170 A35 35 0 0 0 100 30" fill="none" stroke="#fff" stroke-width="2"/>
+</svg>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo"><img src="logo.png"></div>
+  <div class="header-buttons">
+    <button onclick="history.back()">Back</button>
+    <button>Logout</button>
+  </div>
+</div>
+
+<div class="moving-layer" id="movingLayer"></div>
+
+<div class="main">
+  <div class="heading">대한민국 / KOREA</div>
+
+  <div class="search-box">
+    <input id="search" placeholder="Search region...">
+  </div>
+
+  <div class="states">
+    <div class="state" data-name="seoul" onclick="openPage('https://seoulkoreaasia.com/seoul-palaces/')"><h2>Seoul</h2><p>Capital & royal palaces</p></div>
+    <div class="state" data-name="busan" onclick="openPage('https://www.outlooktraveller.com/destinations/international/busan-things-to-do-in-south-koreas-port-city')"><h2>Busan</h2><p>Port city & beaches</p></div>
+    <div class="state" data-name="gyeonggi" onclick="openPage('https://www.korea.net/AboutKorea/Culture/Harmony-between-Tradition-and-Modernity')"><h2>Gyeonggi</h2><p>Traditional & modern blend</p></div>
+    <div class="state" data-name="gangwon" onclick="openPage('https://www.kr-webmagazine.com/discovering-the-natural-beauty-of-gangwon-province-a-guide-to-south-koreas-scenic-gem/')"><h2>Gangwon</h2><p>Mountains & nature</p></div>
+    <div class="state" data-name="jeju" onclick="openPage('https://whc.unesco.org/en/list/1264')"><h2>Jeju</h2><p>Volcanic island heritage</p></div>
+    <div class="state" data-name="jeolla" onclick="openPage('https://www.franvia.com/2025/10/korea-jeolla-city-bapsang-feast-level.html')"><h2>Jeolla</h2><p>Cuisine & folk culture</p></div>
+    <div class="state" data-name="gyeongsang" onclick="openPage('https://artsandculture.google.com/project/northgyeongsang/history')"><h2>Gyeongsang</h2><p>Historic kingdoms</p></div>
+  </div>
+    <div class="state" data-name="products" onclick="openPage('../vedant/pdr_of_stkorea.html')">
+  <h2>Products</h2>
+  <p>Handicrafts & local goods</p>
+</div>
+</div>
+
+<script>
+document.getElementById('search').addEventListener('input',e=>{
+  document.querySelectorAll('.state').forEach(s=>{
+    s.style.display=s.dataset.name.includes(e.target.value.toLowerCase())?'block':'none';
+  });
+});
+
+function openPage(p){window.open(p,'_blank')}
+
+const layer=document.getElementById('movingLayer'),orbs=[];
+for(let i=0;i<28;i++){
+  let o=document.createElement('div');
+  o.className='orb';
+  o.x=Math.random()*innerWidth;
+  o.y=Math.random()*innerHeight;
+  o.vx=(Math.random()-0.5)*0.7;
+  o.vy=(Math.random()-0.5)*0.7;
+  layer.appendChild(o);orbs.push(o);
+}
+(function animate(){
+  orbs.forEach(o=>{
+    o.x += o.vx;
+    o.y += o.vy;
+    if(o.x < 0 || o.x > innerWidth) o.vx *= -1;
+    if(o.y < 0 || o.y > innerHeight) o.vy *= -1;
+    o.style.transform = `translate(${o.x}px, ${o.y}px)`;
+  });
+  requestAnimationFrame(animate);
+})();
+
+</script>
+
+</body>
+</html>

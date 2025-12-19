@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeritageHub — Explore</title>
+
+<style>
+:root{
+  --dark:#050b1f;
+  --mid:#0b1f4d;
+  --light:#163b8a;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: Inter, Arial, sans-serif;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at center, var(--light) 0%, var(--mid) 45%, var(--dark) 90%);
+  color:white;
+  overflow:hidden;
+}
+
+/* ===== HEADER ===== */
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:16px 26px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:50;
+}
+
+/* IMAGE LOGO */
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo img{
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.9);
+}
+
+.logo span{
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:0.5px;
+}
+
+/* LOGOUT */
+.logout{
+  padding:10px 22px;
+  border:none;
+  border-radius:22px;
+  background:white;
+  color:#050b1f;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* ===== MAIN ===== */
+.main{
+  padding-top:130px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:40px;
+  position:relative;
+  z-index:10;
+}
+
+/* SEARCH BAR */
+.search-box{
+  width:360px;
+}
+
+.search-box input{
+  width:100%;
+  padding:15px 20px;
+  border-radius:30px;
+  border:none;
+  outline:none;
+  font-size:15px;
+  background:white;
+  color:black;
+  box-shadow:0 0 25px rgba(255,255,255,0.35);
+}
+
+/* COUNTRIES GRID */
+.countries{
+  display:grid;
+  grid-template-columns:repeat(3, 260px);
+  gap:34px;
+}
+
+.country{
+  background:black;
+  border-radius:20px;
+  padding:30px;
+  text-align:center;
+  cursor:pointer;
+  user-select:none;
+  box-shadow:0 22px 50px rgba(0,0,0,0.9),
+             0 0 22px rgba(255,255,255,0.08);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+
+.country:hover{
+  transform:translateY(-14px);
+  box-shadow:0 35px 70px rgba(0,0,0,1),
+             0 0 35px rgba(255,255,255,0.15);
+}
+
+.country.hidden{
+  display:none;
+}
+
+.country h2{
+  margin:0;
+  font-size:26px;
+}
+
+.country p{
+  margin-top:10px;
+  font-size:14px;
+  color:rgba(255,255,255,0.75);
+}
+
+/* ===== MOVING OBJECTS ===== */
+.moving-layer{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+
+.orb{
+  position:absolute;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff,#9ecbff);
+  opacity:0.7;
+  box-shadow:0 0 30px rgba(255,255,255,0.9);
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .countries{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .countries{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SESSION CHECK -->
+<script>
+// Redirect to login if no session
+if(!sessionStorage.getItem('session')) {
+  window.location.href = 'index.html'; // login page
+}
+
+// Logout function
+function logout() {
+  sessionStorage.removeItem('session');
+  window.location.href = 'index.html';
+}
+</script>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <img src="logo.png" alt="HeritageHub Logo">
+    <span>HeritageHub</span>
+  </div>
+  <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<!-- MOVING OBJECTS -->
+<div class="moving-layer" id="movingLayer"></div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SEARCH -->
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search country...">
+  </div>
+
+  <!-- COUNTRIES -->
+  <div class="countries">
+
+    <div class="country" onclick="openCountry('india.html')" data-name="india">
+      <h2>India</h2><p>Ancient temples & traditions</p>
+    </div>
+
+    <div class="country" onclick="openCountry('japan.html')" data-name="japan">
+      <h2>Japan</h2><p>Samurai & shrine heritage</p>
+    </div>
+
+    <div class="country" onclick="openCountry('korea.html')" data-name="korea">
+      <h2>Korea</h2><p>Korean culture</p>
+    </div>
+
+    <div class="country" onclick="openCountry('https://www.citedelarchitecture.fr/en/article/french-monuments-museum')" data-name="france">
+      <h2>France</h2><p>Art, museums & monuments</p>
+    </div>
+
+    <div class="country" onclick="openCountry('https://www.understandingitaly.com/roman-influence.html')" data-name="italy">
+      <h2>Italy</h2><p>Roman & Renaissance heritage</p>
+    </div>
+
+    <div class="country" onclick="openCountry('https://www.britannica.com/topic/Pyramids-of-Giza')" data-name="egypt">
+      <h2>Egypt</h2><p>Pyramids & ancient civilization</p>
+    </div>
+
+    <div class="country" onclick="openCountry('https://www.thechinajourney.com/china-history/')" data-name="china">
+      <h2>China</h2><p>Great Wall & dynasties</p>
+    </div>
+
+    <div class="country" onclick="openCountry('https://www.britannica.com/place/ancient-Greece')" data-name="greece">
+      <h2>Greece</h2><p>Classical philosophy & ruins</p>
+    </div>
+
+    <div class="country" onclick="openCountry('https://whc.unesco.org/en/list/274')" data-name="peru">
+      <h2>Peru</h2><p>Machu Picchu & Inca heritage</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* SEARCH FILTER */
+document.getElementById('search').addEventListener('input', function () {
+  const value = this.value.toLowerCase();
+  document.querySelectorAll('.country').forEach(country => {
+    country.classList.toggle(
+      'hidden',
+      !country.dataset.name.includes(value)
+    );
+  });
+});
+
+/* PAGE NAVIGATION */
+function openCountry(page){
+  window.location.assign(page);
+}
+
+/* MOVING ORBS */
+const layer=document.getElementById('movingLayer');
+const orbs=[];
+
+for(let i=0;i<30;i++){
+  const o=document.createElement('div');
+  o.className='orb';
+  o.x=Math.random()*innerWidth;
+  o.y=Math.random()*innerHeight;
+  o.vx=(Math.random()-0.5)*0.7;
+  o.vy=(Math.random()-0.5)*0.7;
+  layer.appendChild(o);
+  orbs.push(o);
+}
+
+function animate(){
+  orbs.forEach(o=>{
+    o.x+=o.vx;
+    o.y+=o.vy;
+    if(o.x<0||o.x>innerWidth) o.vx*=-1;
+    if(o.y<0||o.y>innerHeight) o.vy*=-1;
+    o.style.transform=`translate(${o.x}px,${o.y}px)`;
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>South Korea Heritage Store</title>
+
+<style>
+:root{
+  --dark:#040b2d;
+  --mid:#0c1f5f;
+  --light:#274bff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family: Inter, Arial, sans-serif;
+  color:white;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at center,
+      var(--light) 0%,
+      var(--mid) 45%,
+      var(--dark) 90%);
+}
+
+/* LAYOUT */
+.wrapper{
+  position:relative;
+  z-index:10;
+  padding:90px 40px 40px;
+  height:100vh;
+  overflow:auto;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:26px;
+  max-width:1100px;
+  margin:auto;
+}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.08);
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 30px 70px rgba(0,0,0,0.6);
+  backdrop-filter: blur(14px);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+}
+
+/* IMAGE */
+.image-space{
+  height:170px;
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:14px;
+}
+
+.image-space img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:0.4s;
+}
+
+.card:hover img{
+  transform:scale(1.1);
+}
+
+/* PRODUCT NAME */
+.product-name{
+  font-size:1.05rem;
+  font-weight:600;
+  text-align:center;
+  margin-bottom:12px;
+}
+
+/* BUY BUTTON */
+.buy-link{
+  display:block;
+  text-align:center;
+  text-decoration:none;
+  padding:12px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#ffffff,#bfcaff);
+  color:#081133;
+  font-weight:600;
+}
+
+.buy-link:hover{
+  opacity:0.9;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <div class="grid">
+
+    <!-- 1 -->
+    <div class="card">
+      <div class="image-space">
+        <img src="https://images-cdn.ubuy.co.in/633dbd18cde4072a9f7752f1-korean-6-years-red-ginseng-first-grade-5.jpg" alt="Korean Red Ginseng">
+      </div>
+      <div class="product-name">Korean Red Ginseng</div>
+      <a href="pdr1.html"
+   target="_blank"
+   class="buy-link">VIEW</a>
+
+    </div>
+
+    <!-- 2 -->
+    <div class="card">
+      <div class="image-space">
+        <img src="https://www.koreanbapsang.com/wp-content/uploads/2019/11/DSC_0831-e1645400234347.jpg" alt="Kimchi">
+      </div>
+      <div class="product-name">Traditional Kimchi</div>
+      <a href="pdr2.html"
+   target="_blank"
+   class="buy-link">VIEW</a>
+
+    </div>
+
+    <!-- 3 -->
+    <div class="card">
+      <div class="image-space">
+        <img src="https://i.etsystatic.com/12583469/r/il/eebf39/1050772584/il_570xN.1050772584_47w5.jpg" alt="Hanji Paper Craft">
+      </div>
+      <div class="product-name">Hanji Paper Crafts</div>
+      <a href="pdr3.html"
+   target="_blank"
+   class="buy-link">VIEW</a>
+
+    </div>
+
+    <!-- 4 -->
+    <div class="card">
+      <div class="image-space">
+        <img src="https://collectionapi.metmuseum.org/api/collection/v1/iiif/855068/2083903/restricted" alt="Najeonchilgi">
+      </div>
+      <div class="product-name">Najeonchilgi (Mother-of-Pearl)</div>
+      <a href="pdr4.html"
+   target="_blank"
+   class="buy-link">VIEW</a>
+
+    </div>
+
+    <!-- 5 -->
+    <div class="card">
+      <div class="image-space">
+        <img src="https://image.invaluable.com/housePhotos/eldreds/84/758784/H0011-L355383761_original.JPG" alt="Celadon Pottery">
+      </div>
+      <div class="product-name">Korean Celadon Pottery</div>
+      <a href="pdr5.html"
+   target="_blank"
+   class="buy-link">VIEW</a>
+
+    </div>
+
+    <!-- 6 -->
+    <div class="card">
+      <div class="image-space">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Korean_mask-Hahoe_mask-02.jpg/250px-Korean_mask-Hahoe_mask-02.jpg" alt="Hahoetal Mask">
+      </div>
+      <div class="product-name">Hahoetal Traditional Mask</div>
+      <a href="pdr6.html"
+   target="_blank"
+   class="buy-link">VIEW</a>
+
+    </div>
+
+    <!-- 7 -->
+    <div class="card">
+      <div class="image-space">
+        <img src="https://i0.wp.com/vino-joy.com/wp-content/uploads/2022/10/soju-korea.jpg?fit=1280%2C960&ssl=1" alt="Soju">
+      </div>
+      <div class="product-name">Soju (Korean Alcohol)</div>
+      <a href="pdr7.html"
+   target="_blank"
+   class="buy-link">VIEW</a>
+
+    </div>
+
+    <!-- 8 -->
+    <div class="card">
+      <div class="image-space">
+        <img src="https://www.kr-webmagazine.com/wp-content/uploads/2024/10/Hanbok-Dolls-KTO_Kim-Jiho-scaled.jpg" alt="Hanbok Doll">
+      </div>
+      <div class="product-name">Hanbok Traditional Doll</div>
+      <a href="pdr8.html"
+   target="_blank"
+   class="buy-link">VIEW</a>
+
+    </div>
+
+    <!-- 9 -->
+    <div class="card">
+      <div class="image-space">
+        <img src="https://images.pexels.com/photos/11997115/pexels-photo-11997115.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Korean Hanbok">
+      </div>
+      <div class="product-name">Korean Hanbok</div>
+      <a href="pdr9.html"
+   target="_blank"
+   class="buy-link">VIEW</a>
+
+   
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

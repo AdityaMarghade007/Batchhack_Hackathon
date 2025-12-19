@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HeritageHub — Login / Sign Up</title>
+
+  <style>
+    /* base */
+    :root{--gold:#d4a75c;--deep-blue:#0a1a3a;--box-blue:#0d2555}
+    html,body{height:100%;margin:0;font-family:Inter, Arial, sans-serif;background:#000;}
+
+    /* SHADOWED RADIAL BACKGROUND + SUBTLE PATTERN */
+    body{
+      background-image:
+        radial-gradient(circle at center, #000 0%, #060606 35%, #0f0f0f 70%),
+        repeating-radial-gradient(circle at center, rgba(255,255,255,0.002) 0 2px, transparent 2px 8px);
+      display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;color:white;
+    }
+
+    /* decorative vignette and grain */
+    body::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.85) 100%);pointer-events:none}
+    body::after{content:'';position:absolute;inset:0;background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><defs><pattern id="p" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.01)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)" opacity="0.6"/></svg>');mix-blend-mode:overlay;opacity:0.6;pointer-events:none}
+
+    /* LARGE BACKGROUND TEXT (CENTERED) */
+    .bg-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:60px;text-align:center;z-index:1;pointer-events:none}
+    .bg-text .text{max-width:1200px;font-size:44px;line-height:1.4;color:rgba(255,255,255,0.06);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+
+    /* ARTISTIC MANDALA BEHIND */
+    .mandala{position:absolute;left:50%;top:40%;transform:translate(-50%,-40%) scale(1.6);width:800px;height:800px;opacity:0.04;z-index:0;filter:blur(1px);pointer-events:none}
+
+    /* ornate corners - bigger and more detailed */
+    .corner{position:absolute;width:220px;opacity:0.24;z-index:2}
+    .top-left{top:10px;left:10px}
+    .top-right{top:10px;right:10px;transform:scaleX(-1)}
+    .bottom-left{bottom:10px;left:10px;transform:scaleY(-1)}
+    .bottom-right{bottom:10px;right:10px;transform:scale(-1)}
+
+    /* PAGE LOGO */
+    .page-logo{position:absolute;top:20px;left:50%;transform:translateX(-50%);z-index:40}
+    .page-logo svg{width:72px;height:72px;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.8))}
+
+    /* framed border around center area */
+    .frame{position:relative;z-index:30;display:flex;align-items:center;justify-content:center;padding:48px;border-radius:20px}
+
+    /* LOGIN/SIGNUP BOX - with decorative gold border and white outer glow */
+    .auth-container{width:420px;background:linear-gradient(180deg, rgba(10,26,58,0.96), rgba(8,18,40,0.95));padding:34px;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,0.8), 0 0 40px rgba(212,167,92,0.06);border:2px solid rgba(212,167,92,0.06);position:relative;overflow:hidden}
+    .auth-container::before{content:'';position:absolute;inset:-2px;background:linear-gradient(90deg, rgba(212,167,92,0.05), rgba(212,167,92,0.02));mix-blend-mode:screen;pointer-events:none}
+    .orn-border{position:absolute;inset:0;pointer-events:none}
+
+    h2{margin:0 0 14px;font-size:28px;text-align:center}
+    .input-group{margin-bottom:14px}
+    label{font-size:13px;opacity:0.9}
+    input{width:100%;padding:12px;margin-top:6px;border-radius:10px;border:none;background:var(--box-blue);color:#fff;box-shadow:inset 0 0 10px rgba(255,255,255,0.03);transition:box-shadow .25s ease, transform .15s ease}
+    input:focus{box-shadow:0 0 18px rgba(212,167,92,0.18), inset 0 0 10px rgba(255,255,255,0.03);transform:translateY(-1px)}
+    .btn{width:100%;padding:12px;margin-top:12px;border-radius:10px;border:none;background:#fff;color:var(--deep-blue);font-weight:800;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
+    .btn:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.6),0 0 40px rgba(212,167,92,0.08)}
+    .switch{text-align:center;margin-top:12px}
+    .switch a{color:#a9d0ff;cursor:pointer}
+
+    /* small decorative divider */
+    .divider{height:1px;background:linear-gradient(90deg, transparent, rgba(212,167,92,0.18), transparent);margin:18px 0;border-radius:2px}
+
+    /* decorative full border around viewport */
+    .viewport-border{position:fixed;inset:10px;z-index:5;pointer-events:none;border-radius:18px;border:2px solid rgba(212,167,92,0.04);box-shadow:0 0 60px rgba(212,167,92,0.02) inset}
+
+    /* floating particle sparkles */
+    .particle{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(212,167,92,0.9);box-shadow:0 0 12px rgba(212,167,92,0.9);opacity:0.9;z-index:3;pointer-events:none}
+
+    /* moving objects container */
+    .moving-layer{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}
+
+    .lantern{position:absolute;width:28px;height:36px;border-radius:14px;background:linear-gradient(180deg,#ffd89a,#c58d3b);box-shadow:0 10px 18px rgba(197,155,85,0.25),0 0 20px rgba(212,167,92,0.12);display:flex;align-items:center;justify-content:center}
+    .lantern::after{content:'';position:absolute;bottom:-6px;width:6px;height:6px;background:#b8862b;border-radius:2}
+
+    .petal{position:absolute;width:18px;height:10px;background:radial-gradient(circle at 30% 30%, #ffd, #f1c27d);border-radius:50% 50% 40% 40%;opacity:0.95;transform-origin:center}
+
+    /* slow glow animation for mandala */
+    @keyframes slow-rotate {0%{transform:translate(-50%,-40%) rotate(0deg) scale(1.6)}50%{transform:translate(-50%,-40%) rotate(5deg) scale(1.62)}100%{transform:translate(-50%,-40%) rotate(0deg) scale(1.6)}}
+    .mandala{animation:slow-rotate 18s linear infinite}
+
+    /* responsive tweaks */
+    @media (max-width:520px){.bg-text .text{font-size:22px;padding:20px}.auth-container{width:92vw}}
+  </style>
+</head>
+<body>
+
+  <!-- decorative viewport border -->
+  <div class="viewport-border" aria-hidden></div>
+
+  <!-- ORNATE CORNERS -->
+  <img class="corner top-left" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'><g fill='none' stroke='%23d4a75c' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path d='M40 300 C80 220 160 180 260 140' /><path d='M20 260 Q90 150 190 120' /><circle cx='70' cy='70' r='28' /></g></svg>">
+  <img class="corner top-right" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'><g fill='none' stroke='%23d4a75c' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path d='M40 300 C80 220 160 180 260 140' /><path d='M20 260 Q90 150 190 120' /><circle cx='70' cy='70' r='28' /></g></svg>">
+  <img class="corner bottom-left" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'><g fill='none' stroke='%23d4a75c' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path d='M40 300 C80 220 160 180 260 140' /><path d='M20 260 Q90 150 190 120' /><circle cx='70' cy='70' r='28' /></g></svg>">
+  <img class="corner bottom-right" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'><g fill='none' stroke='%23d4a75c' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path d='M40 300 C80 220 160 180 260 140' /><path d='M20 260 Q90 150 190 120' /><circle cx='70' cy='70' r='28' /></g></svg>">
+
+  <!-- SOFT MANDALA CENTER -->
+  <svg class="mandala" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+    <defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#d4a75c" stop-opacity="0.18"/><stop offset="1" stop-color="#d4a75c" stop-opacity="0.02"/></linearGradient></defs>
+    <g fill="none" stroke="url(#lg)" stroke-width="1">
+      <circle cx="100" cy="100" r="60" />
+      <g transform="translate(100,100)">
+        <path d="M60 0 A60 60 0 0 1 58 8"/>
+      </g>
+    </g>
+  </svg>
+
+  <!-- moving objects layer -->
+  <div class="moving-layer" id="movingLayer" aria-hidden></div>
+
+  <!-- LARGE BACKGROUND TEXT -->
+  <div class="bg-text"><div class="text">HERITAGE IS THE LIVING MEMORY OF A PEOPLE — IT PRESERVES TRADITION, ART, AND STORIES.  
+  IT CONNECTS US TO OUR ROOTS, INSPIRES CREATIVITY, AND GIVES COMMUNITIES A SENSE OF IDENTITY.  
+  PRESERVE IT, CELEBRATE IT, LEARN FROM IT — FOR THE FUTURE DEPENDS ON THE PAST.</div></div>
+
+  <!-- PAGE LOGO -->
+  <div class="page-logo">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="g" cx="30%" cy="25%">
+          <stop offset="0%" stop-color="#f6e0c8" stop-opacity="1" />
+          <stop offset="100%" stop-color="#b8844a" stop-opacity="1" />
+        </radialGradient>
+      </defs>
+      <rect x="2" y="2" width="60" height="60" rx="10" fill="url(#g)" opacity="0.18" />
+      <path d="M16 44c6-6 12-16 20-16s14 10 20 16"
+            stroke="#f3e8db" stroke-width="2.6"
+            stroke-linecap="round" stroke-linejoin="round"
+            opacity="0.95" />
+      <circle cx="32" cy="24" r="6" fill="#f3e8db" opacity="0.95" />
+    </svg>
+  </div>
+
+  <!-- floating particles -->
+  <div class="particle" style="left:10%;top:20%;animation:float 8s linear infinite;opacity:0.7;width:5px;height:5px"></div>
+  <div class="particle" style="left:85%;top:18%;animation:float 10s linear infinite;opacity:0.6;width:6px;height:6px"></div>
+  <div class="particle" style="left:25%;top:70%;animation:float 14s linear infinite;opacity:0.5;width:4px;height:4px"></div>
+  <div class="particle" style="left:70%;top:60%;animation:float 12s linear infinite;opacity:0.55;width:7px;height:7px"></div>
+
+  <!-- CENTER FRAME CONTAINING AUTH BOX -->
+  <div class="frame">
+    <div class="auth-container">
+      <div class="orn-border" aria-hidden>
+        <svg width="100%" height="24" viewBox="0 0 600 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 12 C100 0 200 24 300 12 C400 0 500 24 600 12" stroke="rgba(212,167,92,0.18)" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+
+      <h2>Login</h2>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" />
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" />
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="btn" onclick="login()">Login</button>
+
+      <div class="switch">
+        Don't have an account? <a onclick="openSignup()">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Particle animation
+    const style = document.createElement('style');
+    style.innerHTML = `@keyframes float{0%{transform:translateY(0) translateX(0) scale(1)}50%{transform:translateY(-18px) translateX(6px) scale(1.05)}100%{transform:translateY(0) translateX(0) scale(1)}}`;
+    document.head.appendChild(style);
+
+    const layer = document.getElementById('movingLayer');
+    const W = window.innerWidth, H = window.innerHeight;
+
+    function makeLantern(x,y,scale,delay){
+      const el = document.createElement('div');
+      el.className='lantern';
+      el.style.left = x+'px';
+      el.style.top = y+'px';
+      el.style.transform = `scale(${scale})`;
+      layer.appendChild(el);
+      return {el,x,y,vx:(Math.random()-0.5)*0.3,vy:-(0.2+Math.random()*0.35),rot:(Math.random()-0.5)*20,scale,delay};
+    }
+
+    function makePetal(x,y,scale,angle){
+      const el = document.createElement('div');
+      el.className='petal';
+      el.style.left = x+'px';
+      el.style.top = y+'px';
+      el.style.transform = `rotate(${angle}deg) scale(${scale})`;
+      layer.appendChild(el);
+      return {el,x,y,vx:(-0.15+Math.random()*0.3),vy:(0.2+Math.random()*0.3),rotSpeed:(Math.random()-0.5)*3,scale};
+    }
+
+    const lanterns = [], petals = [];
+    const lanternCount = Math.min(8, Math.floor(window.innerWidth/160));
+    for(let i=0;i<lanternCount;i++){
+      const x=Math.random()*W;
+      const y=H+Math.random()*200;
+      lanterns.push(makeLantern(x,y,0.9+Math.random()*0.6,Math.random()*2000));
+    }
+    for(let i=0;i<28;i++){
+      const x=Math.random()*W;
+      const y=Math.random()*H;
+      petals.push(makePetal(x,y,0.8+Math.random()*0.4,Math.random()*360));
+    }
+
+    function animate(){
+      for(const l of lanterns){
+        l.x+=l.vx;
+        l.y+=l.vy;
+        if(l.y<-50) l.y=H+50;
+        if(l.x<-50) l.x=W+50;
+        if(l.x>W+50) l.x=-50;
+        l.el.style.left=l.x+'px';
+        l.el.style.top=l.y+'px';
+      }
+      for(const p of petals){
+        p.x+=p.vx;
+        p.y+=p.vy;
+        p.el.style.transform = `rotate(${(parseFloat(p.el.style.transform.replace(/rotate\(([^)]+)deg\).*/,'$1'))||0)+p.rotSpeed}deg) scale(${p.scale})`;
+        if(p.y>H+10) p.y=-10;
+        if(p.x<-20) p.x=W+20;
+        if(p.x>W+20) p.x=-20;
+        p.el.style.left=p.x+'px';
+        p.el.style.top=p.y+'px';
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // LOGIN/SIGNUP SCRIPT
+    function getUsers(){return JSON.parse(localStorage.getItem('users')||'{}');}
+    function saveUsers(users){localStorage.setItem('users',JSON.stringify(users));}
+    function setSession(email){ sessionStorage.setItem('session',email); }
+    function clearSession(){ sessionStorage.removeItem('session'); }
+
+
+    function openSignup(){
+      const container = document.querySelector('.auth-container');
+      container.innerHTML=`
+      <div class="orn-border" aria-hidden>
+        <svg width="100%" height="24" viewBox="0 0 600 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 12 C100 0 200 24 300 12 C400 0 500 24 600 12" stroke="rgba(212,167,92,0.18)" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      <h2>Sign Up</h2>
+
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" id="signupName" placeholder="Enter your name" />
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="signupEmail" placeholder="Enter your email" />
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="signupPassword" placeholder="Create a password" />
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="btn" onclick="signup()">Sign Up</button>
+
+      <div class="switch">Already have an account? <a onclick="openLogin()">Login</a></div>
+      `;
+    }
+
+    function openLogin(){
+      const container=document.querySelector('.auth-container');
+      container.innerHTML=`
+      <div class="orn-border" aria-hidden>
+        <svg width="100%" height="24" viewBox="0 0 600 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 12 C100 0 200 24 300 12 C400 0 500 24 600 12" stroke="rgba(212,167,92,0.18)" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      <h2>Login</h2>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" />
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" />
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="btn" onclick="login()">Login</button>
+
+      <div class="switch">
+        Don't have an account? <a onclick="openSignup()">Sign Up</a>
+      </div>
+      `;
+    }
+
+    function signup(){
+      const name=document.getElementById('signupName').value.trim();
+      const email=document.getElementById('signupEmail').value.trim();
+      const password=document.getElementById('signupPassword').value;
+      if(!name||!email||!password){alert('Please fill all fields');return;}
+      const users=getUsers();
+      if(users[email]){alert('Email already registered. Please login.');return;}
+      users[email]={name,password};
+      saveUsers(users);
+      alert('Sign up successful! Please log in.');
+      openLogin();
+    }
+
+    function login(){
+      const email=document.getElementById('loginEmail').value.trim();
+      const password=document.getElementById('loginPassword').value;
+      const users=getUsers();
+      if(users[email]&&users[email].password===password){
+        setSession(email);
+        window.location.href='page3.html';
+      } else {alert('Invalid email or password.');}
+    }
+
+    if(sessionStorage.getItem('session')) {
+  window.location.href = 'page3.html';
+}
+
+  </script>
+</body>
+</html>

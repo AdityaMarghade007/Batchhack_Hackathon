@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Product Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --dark:#020b2d;
+  --mid:#0b2a6f;
+  --light:#1f55c8;
+  --blue:#1e90ff;
+  --white:#ffffff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at center, var(--light) 0%, var(--mid) 45%, var(--dark) 85%);
+  color:white;
+  overflow:hidden;
+}
+
+/* ================= MOVING OBJECTS ================= */
+.bg-shapes span{
+  position:absolute;
+  width:14px;
+  height:14px;
+  background:rgba(255,255,255,0.9);
+  animation:float 18s linear infinite;
+  border-radius:50%;
+}
+
+.bg-shapes span:nth-child(odd){
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+@keyframes float{
+  0%{transform:translateY(110vh) rotate(0deg);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+}
+
+.bg-shapes span:nth-child(1){left:5%;}
+.bg-shapes span:nth-child(2){left:15%; animation-delay:2s;}
+.bg-shapes span:nth-child(3){left:30%; animation-delay:4s;}
+.bg-shapes span:nth-child(4){left:45%; animation-delay:1s;}
+.bg-shapes span:nth-child(5){left:60%; animation-delay:3s;}
+.bg-shapes span:nth-child(6){left:75%; animation-delay:5s;}
+.bg-shapes span:nth-child(7){left:90%; animation-delay:6s;}
+
+/* ================= MAIN CONTAINER ================= */
+.container{
+  position:relative;
+  z-index:2;
+  max-width:1100px;
+  margin:80px auto;
+  padding:40px;
+  background:rgba(255,255,255,0.05);
+  border-radius:18px;
+  backdrop-filter:blur(8px);
+  box-shadow:0 25px 60px rgba(0,0,0,0.6);
+  overflow:hidden;
+}
+
+/* ================= CORNER DESIGNS ================= */
+.corner{
+  position:absolute;
+  width:80px;
+  height:80px;
+  border:2px solid rgba(255,255,255,0.6);
+  box-shadow:0 0 15px rgba(255,255,255,0.5);
+}
+
+.corner::before,
+.corner::after{
+  content:"";
+  position:absolute;
+  width:40px;
+  height:40px;
+  border:2px solid rgba(255,255,255,0.6);
+}
+
+.corner::before{top:10px; left:10px;}
+.corner::after{bottom:10px; right:10px;}
+
+.top-left{top:10px; left:10px; border-right:none; border-bottom:none;}
+.top-right{top:10px; right:10px; border-left:none; border-bottom:none;}
+.bottom-left{bottom:10px; left:10px; border-right:none; border-top:none;}
+.bottom-right{bottom:10px; right:10px; border-left:none; border-top:none;}
+
+/* ================= PRODUCT LAYOUT ================= */
+.product{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+
+/* ================= IMAGE ================= */
+.image-space{
+  height:360px;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.product-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:14px;
+}
+
+/* ================= DETAILS ================= */
+.details{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.product-name{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.product-price{
+  font-size:22px;
+  color:#a8c7ff;
+}
+
+/* ================= BUY BUTTON ================= */
+.buy-btn{
+  margin-top:30px;
+  width:200px;
+  padding:14px;
+  text-align:center;
+  background:var(--blue);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  border-radius:10px;
+  text-decoration:none;
+  box-shadow:0 10px 25px rgba(30,144,255,0.5);
+  transition:0.3s;
+}
+
+.buy-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 35px rgba(30,144,255,0.7);
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+  .product{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MOVING OBJECTS -->
+<div class="bg-shapes">
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+  <!-- CORNER DESIGNS -->
+  <div class="corner top-left"></div>
+  <div class="corner top-right"></div>
+  <div class="corner bottom-left"></div>
+  <div class="corner bottom-right"></div>
+
+  <div class="product">
+
+    <!-- PRODUCT IMAGE -->
+    <div class="image-space">
+      <img src="https://images-cdn.ubuy.co.in/633dbd18cde4072a9f7752f1-korean-6-years-red-ginseng-first-grade-5.jpg" alt="Product Image" class="product-img">
+    </div>
+
+    <!-- PRODUCT DETAILS -->
+    <div class="details">
+      <div class="product-name">Korean Red Ginseng</div>
+      <div class="product-price">Korean Red Ginseng is a traditional Korean herb known for boosting energy, immunity, and overall vitality. It is carefully processed to enhance its strength and contains ginsenosides that help reduce fatigue and improve focus</div>
+      <a href="https://saigonsava.com/san-pham/hong-sam-cu-kho-daedong-6-nam-tuoi-han-quoc-hop-75g/" class="buy-btn">BUY (₹1,999)</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
